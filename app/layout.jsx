@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Ulearna",
-  description: "Learn something new every day",
+  description: "Ulearna is a family-friendly platform where harmful or inappropriate content is strictly prohibited.",
 };
 
 export default function RootLayout({ children }) {

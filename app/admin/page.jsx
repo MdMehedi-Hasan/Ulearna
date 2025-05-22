@@ -1,10 +1,13 @@
 "use client";
-import React from 'react'
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import React from "react";
 
 const AdminPage = () => {
   return (
-    <div>hello admin</div>
-  )
-}
+    <div>
+      <SidebarTrigger /> hello admin
+    </div>
+  );
+};
 
-export default AdminPage
+export default AdminPage;
