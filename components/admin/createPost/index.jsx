@@ -46,7 +46,7 @@ const CreatePost = () => {
     addPostMutation.mutate(data);
   };
   return (
-    <div className="w-full overflow-hidden h-screen border flex items-center justify-center">
+    <div className="w-full overflow-hidden h-screen flex items-center justify-center">
       <Card className="w-2/3 p-10">
         <form
           className="flex flex-col gap-4"
