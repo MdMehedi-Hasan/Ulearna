@@ -1,19 +1,22 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const CustomTabs = ({ options }) => {
-    const redirect = ()=>{
-        console.log("redirecting")
-    }
+const CustomTabs = ({ options, selected }) => {
+  const router = useRouter();
+  const handleTabChange = (value) => {
+    router.push(`/admin/posts?view=${value}`);
+  };
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs
+      defaultValue={selected}
+      className="w-36"
+      onValueChange={handleTabChange}
+    >
       <TabsList className="grid w-full grid-cols-2">
         {options?.map((item, index) => (
-          <TabsTrigger value={item?.name} key={index}>
-            <Link href={`/admin/posts?view=${item?.params}`} key={index}>
-              {item?.name}
-            </Link>
+          <TabsTrigger value={item?.params} key={index} className="w-full">
+            {item?.name}
           </TabsTrigger>
         ))}
       </TabsList>

@@ -24,7 +24,7 @@ const AdminSidebar = () => {
     },
     {
       title: "Posts",
-      url: "/admin/posts",
+      url: "/admin/posts?view=list",
       icon: BsFillJournalBookmarkFill,
     },
     {
@@ -46,7 +46,7 @@ const AdminSidebar = () => {
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
                       <item.icon />
-                      <span>{item.title}</span>
+                      {item.title}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

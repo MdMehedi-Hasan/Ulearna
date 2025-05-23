@@ -1,16 +1,7 @@
-import CustomTabs from "@/components/tabs";
-import React from "react";
+import PostsPage from "@/components/admin/posts";
 
 const Posts = () => {
-  const options = [
-    { name: "List", params: "list" },
-    { name: "Grid", params: "grid" },
-  ];
-  return (
-    <div>
-      <CustomTabs options={options} />
-    </div>
-  );
+  return <PostsPage />;
 };
 
 export default Posts;

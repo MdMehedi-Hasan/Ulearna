@@ -6,7 +6,6 @@ const AdminLayout = ({children}) => {
     <SidebarProvider>
       <AdminSidebar />
       <main>
-        {/* <SidebarTrigger /> */}
         {children}
       </main>
     </SidebarProvider>
