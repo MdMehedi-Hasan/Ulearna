@@ -6,9 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AiTwotoneDelete } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
+import { LuPencilLine } from "react-icons/lu";
 
-const PostCard = ({ post, setOpen, setToDeletePost }) => {
+const PostCard = ({ post, setOpen, setToDeletePost,setToEditPost }) => {
   return (
     <Card className="flex flex-col">
       <CardHeader>
@@ -16,15 +17,31 @@ const PostCard = ({ post, setOpen, setToDeletePost }) => {
       </CardHeader>
       <CardContent className="flex-1">{post?.body}</CardContent>
       <CardFooter className="flex justify-between mt-auto">
-        <Button variant="outline">Edit</Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            setOpen((prev) => ({
+              ...prev,
+              editModal: true,
+            }));
+            setToEditPost(post?.id);
+          }}
+        >
+          <LuPencilLine />
+          Edit
+        </Button>
         <Button
           onClick={() => {
-            setOpen(true), 
-            setToDeletePost(post.id);
+            setOpen((prev) => ({
+              ...prev,
+              deleteModal: true,
+            }));
+            setToDeletePost(post?.id);
           }}
-          className="bg-[#eb3131] text-white hover:bg-red-700"
+          className="border border-[#eb3131] text-[#eb3131] hover:bg-[#eb3131] hover:text-white"
+          variant="outline"
         >
-          <AiTwotoneDelete /> Delete
+          <AiOutlineDelete /> Delete
         </Button>
       </CardFooter>
     </Card>

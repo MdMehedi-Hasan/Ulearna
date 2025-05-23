@@ -16,12 +16,18 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import EditModal from "./editModal";
+import { useForm } from "react-hook-form";
 
 const PostsPage = () => {
   const queryClient = useQueryClient();
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState({
+    deleteModal: false,
+    editModal: false,
+  });
   const [toDeletePost, setToDeletePost] = useState(null);
-  console.log("toDeletePost", toDeletePost);
+  const [toEditPost, setToEditPost] = useState(null);
+  const { register, handleSubmit, reset } = useForm();
   /* Assuming all the post is from this single user (As mentioned in the task) */
   const { data: posts } = useQuery({
     queryKey: ["posts"],
@@ -34,7 +40,6 @@ const PostsPage = () => {
   });
   const deletePostMutation = useMutation({
     mutationFn: async () => {
-      console.log("inside deletePostMutation");
       const res = await fetch(
         `https://jsonplaceholder.typicode.com/posts/${toDeletePost}`,
         {
@@ -54,11 +59,51 @@ const PostsPage = () => {
         queryKey: ["posts"],
       });
       setToDeletePost(null);
-      setDialogOpen(false);
+      setDialogOpen((prev) => ({
+        ...prev,
+        deleteModal: false,
+      }));
+    },
+  });
+  const editPostMutation = useMutation({
+    mutationFn: async (data) => {
+      const res = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${toEditPost}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            id: data?.id,
+            userId: data?.userid,
+            title: data?.title,
+            body: data?.body,
+          }),
+        }
+      );
+      return res.json();
+    },
+    onSuccess: () => {
+      toast.success("Post updated successfully");
+    },
+    onError: () => {
+      toast.error("Something went wrong");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
+      setToEditPost(null);
+      setDialogOpen((prev) => ({
+        ...prev,
+        editModal: false,
+      }));
+      reset();
     },
   });
   const handleDeletePost = () => {
     deletePostMutation.mutate();
+  };
+  const handleEditPost = (data) => {
+    editPostMutation.mutate(data);
   };
   const options = [
     { name: "List", params: "list" },
@@ -67,15 +112,15 @@ const PostsPage = () => {
   const searchParams = useSearchParams();
   const displayType = searchParams.get("view") || options?.[0]?.params;
   return (
-    <div className="px-10">
-      <div className="mt-5 mb-10 flex justify-end">
-        <CustomTabs options={options} selected={displayType} />
-      </div>
+    <div className="px-10 pb-10">
       <Dialog
-        open={dialogOpen}
+        open={dialogOpen.deleteModal}
         onOpenChange={(open) => {
           if (!open) {
-            setDialogOpen(false);
+            setDialogOpen((prev) => ({
+              ...prev,
+              deleteModal: false,
+            }));
             setToDeletePost(null);
           }
         }}
@@ -93,6 +138,17 @@ const PostsPage = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <EditModal
+        dialogOpen={dialogOpen.editModal}
+        setDialogOpen={setDialogOpen}
+        handleEditPost={handleEditPost}
+        setToEditPost={setToEditPost}
+        register={register}
+        handleSubmit={handleSubmit}
+      />
+      <div className="mt-5 mb-10 flex justify-end">
+        <CustomTabs options={options} selected={displayType} />
+      </div>
       <div>
         {displayType === "grid" ? (
           <div className="overflow-hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5">
@@ -103,6 +159,7 @@ const PostsPage = () => {
                 deletePost={deletePostMutation}
                 setOpen={setDialogOpen}
                 setToDeletePost={setToDeletePost}
+                setToEditPost={setToEditPost}
               />
             ))}
           </div>
