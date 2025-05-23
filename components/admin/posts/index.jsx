@@ -164,7 +164,13 @@ const PostsPage = () => {
             ))}
           </div>
         ) : (
-          <PostsTable posts={posts} />
+          <PostsTable
+            posts={posts}
+            deletePost={deletePostMutation}
+            setOpen={setDialogOpen}
+            setToDeletePost={setToDeletePost}
+            setToEditPost={setToEditPost}
+          />
         )}
       </div>
     </div>

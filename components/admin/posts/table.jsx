@@ -1,16 +1,13 @@
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { AiOutlineDelete } from "react-icons/ai";
 import { LuPencilLine } from "react-icons/lu";
 
-const PostsTable = ({ posts }) => {
+const PostsTable = ({
+  posts,
+  setOpen,
+  setToDeletePost,
+  setToEditPost,
+}) => {
   return (
     <div className="w-full overflow-x-auto">
       <table class="w-full table-auto border border-gray-300">
@@ -25,17 +22,37 @@ const PostsTable = ({ posts }) => {
         </thead>
         <tbody>
           {posts?.map((post) => (
-            <tr>
+            <tr key={post?.id}>
               <td class="px-4 py-2 text-center border">{post?.id}</td>
               <td class="px-4 py-2 text-center border">{post?.userId}</td>
               <td class="px-4 py-2 border break-words">{post?.title}</td>
               <td class="px-4 py-2 border break-words">{post?.body}</td>
               <td class="px-4 py-2 border break-words">
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" className="text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white">
-                    <LuPencilLine/>
+                  <Button
+                    variant="outline"
+                    className="text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white"
+                    onClick={() => {
+                      setOpen((prev) => ({
+                        ...prev,
+                        editModal: true,
+                      }));
+                      setToEditPost(post?.id);
+                    }}
+                  >
+                    <LuPencilLine />
                   </Button>
-                  <Button variant="outline" className="text-red-500 border border-red-500 hover:bg-red-500 hover:text-white">
+                  <Button
+                    variant="outline"
+                    className="text-red-500 border border-red-500 hover:bg-red-500 hover:text-white"
+                    onClick={() => {
+                      setOpen((prev) => ({
+                        ...prev,
+                        deleteModal: true,
+                      }));
+                      setToDeletePost(post?.id);
+                    }}
+                  >
                     <AiOutlineDelete />
                   </Button>
                 </div>
