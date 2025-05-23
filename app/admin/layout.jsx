@@ -1,13 +1,11 @@
 import AdminSidebar from "@/components/admin-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-const AdminLayout = ({children}) => {
+const AdminLayout = ({ children }) => {
   return (
     <SidebarProvider>
       <AdminSidebar />
-      <main>
-        {children}
-      </main>
+      {children}
     </SidebarProvider>
   );
 };

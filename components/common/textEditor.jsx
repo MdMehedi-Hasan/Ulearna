@@ -1,10 +1,18 @@
-"use client"
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
-const TextEditor = () => {
-  const [value, setValue] = useState('');
-  return <ReactQuill theme="snow" value={value} onChange={setValue} />;
+"use client";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
+const TextEditor = ({ value, setValue }) => {
+  return (
+    <ReactQuill
+      theme="snow"
+      value={value}
+      onChange={setValue}
+      className="h-full"
+      style={{
+        height: "100%",
+      }}
+    />
+  );
 };
 
 export default TextEditor;
