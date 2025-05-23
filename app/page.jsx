@@ -1,33 +1,19 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useQuery } from "@tanstack/react-query";
+import CallToAction from "@/components/Home/callToAction";
+import FeatureHighlight from "@/components/Home/featureHighlight";
+import Hero from "@/components/Home/hero";
+import PostFeed from "@/components/Home/postFeed";
+import Testimonials from "@/components/Home/testimonials";
 
 export default function Home() {
-  // const { data } = useQuery({
-  //   queryKey: ["test"],
-  //   queryFn: async () => {
-  //     const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  //     return res.json();
-  //   },
-  // });
-  // console.log(data);
   return (
-    <div>
-      hello
-      <Button>Click Me!</Button>
-      <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <main className="min-h-screen">
+      <Hero />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <FeatureHighlight />
+        <PostFeed />
+        <Testimonials />
+        <CallToAction />
+      </div>
+    </main>
   );
 }

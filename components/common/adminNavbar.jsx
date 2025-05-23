@@ -2,13 +2,14 @@ import React from "react";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <div className="w-full border-b shadow h-18 flex items-center">
       <SidebarTrigger />
       <ul className="w-full flex items-center justify-between pr-5">
-        <li>Ulerna</li>
+        <li><Link href="/">Ulerna</Link></li>
         <li className="w-2/3">
           <Input placeholder="search"/>
         </li>
