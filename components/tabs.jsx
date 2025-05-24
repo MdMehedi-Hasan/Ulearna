@@ -1,11 +1,9 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRouter } from "next/navigation";
 
-const CustomTabs = ({ options, selected }) => {
-  const router = useRouter();
+const CustomTabs = ({ options, selected, setDisplayType }) => {
   const handleTabChange = (value) => {
-    router.push(`/admin/posts?view=${value}`);
+    setDisplayType(value);
   };
   return (
     <Tabs

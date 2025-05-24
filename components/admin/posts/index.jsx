@@ -1,7 +1,6 @@
 "use client";
 
 import CustomTabs from "@/components/tabs";
-import { useSearchParams } from "next/navigation";
 import PostsTable from "./table";
 import PostCard from "@/components/common/card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -21,6 +20,7 @@ import { useForm } from "react-hook-form";
 
 const PostsPage = () => {
   const queryClient = useQueryClient();
+  const [displayType, setDisplayType] = useState("list");
   const [dialogOpen, setDialogOpen] = useState({
     deleteModal: false,
     editModal: false,
@@ -109,8 +109,6 @@ const PostsPage = () => {
     { name: "List", params: "list" },
     { name: "Grid", params: "grid" },
   ];
-  const searchParams = useSearchParams();
-  const displayType = searchParams.get("view") || options?.[0]?.params;
   return (
     <div className="px-10 pb-10">
       <Dialog
@@ -147,7 +145,7 @@ const PostsPage = () => {
         handleSubmit={handleSubmit}
       />
       <div className="mt-5 mb-10 flex justify-end">
-        <CustomTabs options={options} selected={displayType} />
+        <CustomTabs options={options} selected={displayType} setDisplayType={setDisplayType}/>
       </div>
       <div>
         {displayType === "grid" ? (
