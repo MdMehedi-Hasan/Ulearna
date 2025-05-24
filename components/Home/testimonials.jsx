@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-// import { Star } from "lucide-react";
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -67,18 +66,6 @@ export default function Testimonials() {
               <Card className="max-w-2xl mx-auto">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-6">
-                    {/* {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-5 w-5 fill-yellow-400 text-yellow-400"
-                      />
-                    ))}
-                    {[...Array(5 - testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i + testimonial.rating}
-                        className="h-5 w-5 text-muted"
-                      />
-                    ))} */}
                   </div>
                   <p className="text-lg mb-6 italic">"{testimonial.content}"</p>
                   <div className="flex items-center gap-4">

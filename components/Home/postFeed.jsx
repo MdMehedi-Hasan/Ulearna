@@ -1,54 +1,28 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '../ui/button';
-import Post from './post';
+"use client";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "../ui/button";
+import Post from "./post";
+import { useQuery } from "@tanstack/react-query";
 
 export default function PostFeed() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=6');
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts');
-        }
-        const data = await response.json();
-        
-        // Get user data for each post
-        const usersResponse = await fetch('https://jsonplaceholder.typicode.com/users');
-        const users = await usersResponse.json();
-        
-        // Combine post data with user data
-        const postsWithUserData = data.map(post => {
-          const user = users.find(user => user.id === post.userId);
-          return {
-            ...post,
-            user: user || { name: 'Anonymous User', username: 'anonymous' }
-          };
-        });
-        
-        setPosts(postsWithUserData);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    }
-
-    fetchPosts();
-  }, []);
-
+  const { data: posts, loading,error } = useQuery({
+    queryKey: ["posts"],
+    queryFn: async () => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts?_limit=6"
+      );
+      return response.json();
+    },
+  });
   return (
     <section className="py-12 md:py-16">
       <div className="flex flex-col items-center mb-10 text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Latest Posts</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+          Latest Posts
+        </h2>
         <p className="text-muted-foreground max-w-[700px]">
-          Discover trending content from our community. Join the conversation and share your thoughts.
+          Discover trending content from our community. Join the conversation
+          and share your thoughts.
         </p>
       </div>
 
@@ -56,7 +30,9 @@ export default function PostFeed() {
         <div className="rounded-md bg-destructive/15 p-4 my-6">
           <div className="flex">
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-destructive">Error loading posts</h3>
+              <h3 className="text-sm font-medium text-destructive">
+                Error loading posts
+              </h3>
               <div className="mt-2 text-sm text-destructive/80">
                 <p>{error}</p>
               </div>
@@ -89,10 +65,10 @@ export default function PostFeed() {
                   </div>
                 </div>
               ))
-          : posts.map((post) => <Post key={post.id} post={post} />)}
+          : posts?.map((post) => <Post key={post.id} post={post} />)}
       </div>
-      
-      {!loading && posts.length > 0 && (
+
+      {!loading && posts?.length > 0 && (
         <div className="flex justify-center mt-10">
           <Button variant="outline">View More Posts</Button>
         </div>

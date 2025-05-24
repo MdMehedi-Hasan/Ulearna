@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function CallToAction() {
   return (
@@ -17,7 +18,7 @@ export default function CallToAction() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" className="text-md">
               Create Account
-              {/* <ArrowRight className="ml-2 h-4 w-4" /> */}
+              <FaArrowRightLong className="ml-2 h-4 w-4"/>
             </Button>
             <Button size="lg" variant="outline" className="text-md">
               Learn More
