@@ -24,7 +24,7 @@ const AdminSidebar = () => {
     },
     {
       title: "Posts",
-      url: "/admin/posts?view=list",
+      url: "/admin/posts",
       icon: BsFillJournalBookmarkFill,
     },
     {

@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import TextEditor from "@/components/common/textEditor";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
@@ -8,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import dynamic from "next/dynamic";
+
+const TextEditor = dynamic(() => import("@/components/common/textEditor"), {
+  ssr: false,
+});
 
 const CreatePost = () => {
   const queryClient = useQueryClient();
