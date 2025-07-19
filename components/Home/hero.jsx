@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <div className="relative overflow-hidden bg-gradient-to-b from-background to-muted/50 py-12 md:py-24">
       <div className="absolute inset-0 bg-grid-small-black/[0.2] bg-[center_top_-1px] dark:bg-grid-small-white/[0.2]" />
-      <div className="container px-4 md:px-6 flex flex-col items-center text-center relative z-10">
+      <div className="container mx-auto px-4 md:px-6 flex flex-col items-center text-center relative z-10">
         <div className={`transition-all duration-1000 ease-in-out transform ${
           loaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`}>
